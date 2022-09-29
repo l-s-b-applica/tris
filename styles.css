@@ -1,0 +1,127 @@
+body { 
+    margin: 0;
+    --MyPurple: #6033FF;
+    --MyCyan: #60FFFF;
+    --MyYellow: #FFDD00;
+    --MyOrange: #FF7700;
+    --MyRed: #FF0088;
+    --MyPink: #FF22FF;
+    --hexagonPoints: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
+}
+
+#title {
+    color: lightgray;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 3rem;
+    margin: auto;
+    font-weight: 300;
+}
+
+#container {
+    width: 100vw;
+    height: 100vh;
+    background-color: #333;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.column svg { margin-bottom: 3rem; }
+
+#teeth polygon { fill: var(--MyCyan); }
+#claw polygon { fill: var(--MyPurple); }
+#sierpinski polygon { fill: var(--MyRed); }
+#radioactive polygon { fill: var(--MyYellow); }
+#fish polygon { fill: var(--MyPink); }
+#hump polygon { fill: var(--MyOrange); }
+#single polygon { fill: silver; }
+
+/* MAIN GRID */
+
+.triangle {
+    height: 0;
+    width: 0;
+    border-left: 1.5rem solid transparent;
+    border-right: 1.5rem solid transparent;
+    margin-right: -1.15rem;
+}
+
+#grid {
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    z-index: 40;
+    padding-right: 1.25rem;
+    padding-top: 13.5rem;
+}
+
+.gridRow {
+    display: flex;
+    flex-direction: row;
+    margin: 0 auto;
+    margin-bottom: 0.5rem;
+}
+
+/* grid adjustments */
+.up { margin-top: 0.08rem; }
+.down{ margin-top: -0.08rem; }
+
+@media (min-width:1200px) {
+    body { font-size: 16px; }
+    .hex {--hexSize: 760px; }
+}
+
+/* GRID FRAME */
+
+.hex {
+    display: flex;
+    top: 27vh;
+    align-self: center;
+    position: absolute;
+    width: var(--hexSize);
+    height: calc(var(--hexSize) * 0.86602540378);
+    box-sizing: border-box;
+    -webkit-clip-path: var(--hexagonPoints);
+    -moz-clip-path: var(--hexagonPoints);
+    clip-path: var(--hexagonPoints);
+    animation: color-change 5s linear infinite;
+    opacity: 0.8;
+    z-index: 20;
+  }
+  
+  .hex-background {
+    position: absolute;
+    background-color: #333;
+    top: 0.6rem; /* border thickness */
+    left: 0.6rem;
+    width: calc(var(--hexSize) - 1.2rem);
+    height: calc(var(--hexSize) * 0.86602540378 - 1.2rem);
+    -webkit-clip-path: var(--hexagonPoints);
+    -moz-clip-path: var(--hexagonPoints);
+    clip-path: var(--hexagonPoints);
+    z-index: 30;
+  }
+
+  @media (orientation: landscape) {}
+
+  @media (orientation: portrait) {}
+  
+  @keyframes color-change {
+    0% { background: var(--MyPurple); }
+    11% { background: var(--MyCyan); }
+    22% { background: slategray; }
+    33% { background: var(--MyYellow); }
+    44% { background: var(--MyOrange); }
+    55% { background: slategray; }
+    66% { background: var(--MyRed); }
+    77% { background: var(--MyPink); }
+    88% { background: #333; }
+    100% { background: var(--MyPurple); }
+  }
