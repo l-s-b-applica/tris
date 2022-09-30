@@ -31,7 +31,7 @@ const downThreeRows = currentFall[currentRow] + currentFall[currentRow+1] + curr
 const violeta = {
     className: 'violet',
         shapeMatrix: [
-        [0, 4, downOneRow+1],
+        [0, 4, downOneRow+2],
         [3, downOneRow+2, downTwoRows+3],
         [downOneRow+4, downTwoRows+1, downThreeRows],
         [downTwoRows, downThreeRows-3, downThreeRows+1],
@@ -87,33 +87,31 @@ const cian = {
     ]
 }
 const blanca = {
-    className: 'white',
+    className: 'silver',
     shapeMatrix: [
         [downOneRow+1],
         [downTwoRows]
     ]
 }
 const fichas = [violeta, roja, rosada, naranja, amarilla, cian, blanca]
-
+let currentShape = fichas[0];
 /* console.log('Color random: ', fichas[Math.floor(Math.random() * fichas.length)].className) */
 
 /* Ficha aleatoria --> 
 fichas[Math.floor(Math.random() * fichas.length)]
 NO guardar en variable, pierde la variación!*/
 
-
-
 function newUpTriangle() {
     const upTriangle = document.createElement('div')
+    upTriangle.style.cssText = `border-bottom-width: ${1.5 * tan60}rem; border-bottom-style: solid;`
     upTriangle.classList.add('up', 'triangle')
-    upTriangle.style.cssText = `border-bottom: ${1.5 * tan60}rem solid dimgray;`
     return upTriangle
 }
 
 function newDownTriangle() {
     const downTriangle = document.createElement('div')
+    downTriangle.style.cssText = `border-top-width: ${1.5 * tan60}rem; border-top-style: solid;`
     downTriangle.classList.add('down', 'triangle')
-    downTriangle.style.cssText = `border-top: ${1.5 * tan60}rem solid gray;`
     return downTriangle
 }
 
@@ -127,5 +125,9 @@ gridValues.forEach(row => {
 })
 
 //Select all triangles
-const allGridTriangles = Array.from(grid.querySelectorAll('.triangle'))
+const gridTriangles = Array.from(grid.querySelectorAll('.triangle'))
+
+function printShape() {
+    currentShape.shapeMatrix[0].forEach(space => gridTriangles[space].classList.add(currentShape.className))
+}
 
