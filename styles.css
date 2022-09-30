@@ -1,6 +1,7 @@
 body { 
     margin: 0;
-    --MyPurple: #6033FF;
+    color: silver;
+    --MyViolet: #6033FF;
     --MyCyan: #60FFFF;
     --MyYellow: #FFDD00;
     --MyOrange: #FF7700;
@@ -10,7 +11,6 @@ body {
 }
 
 #title {
-    color: lightgray;
     font-family: 'Courier New', Courier, monospace;
     font-size: 3rem;
     margin: auto;
@@ -36,7 +36,7 @@ body {
 .column svg { margin-bottom: 3rem; }
 
 #teeth polygon { fill: var(--MyCyan); }
-#claw polygon { fill: var(--MyPurple); }
+#claw polygon { fill: var(--MyViolet); }
 #sierpinski polygon { fill: var(--MyRed); }
 #radioactive polygon { fill: var(--MyYellow); }
 #fish polygon { fill: var(--MyPink); }
@@ -114,7 +114,7 @@ body {
   @media (orientation: portrait) {}
   
   @keyframes color-change {
-    0% { background: var(--MyPurple); }
+    0% { background: var(--MyViolet); }
     11% { background: var(--MyCyan); }
     22% { background: slategray; }
     33% { background: var(--MyYellow); }
@@ -123,5 +123,5 @@ body {
     66% { background: var(--MyRed); }
     77% { background: var(--MyPink); }
     88% { background: #333; }
-    100% { background: var(--MyPurple); }
+    100% { background: var(--MyViolet); }
   }
