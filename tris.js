@@ -28,51 +28,80 @@ const downOneRow = currentFall[currentRow]
 const downTwoRows = currentFall[currentRow] + currentFall[currentRow+1]
 const downThreeRows = currentFall[currentRow] + currentFall[currentRow+1] + currentFall[currentRow+2]
 
-const violeta = [
-    [0, 4, downOneRow+1],
-    [3, downOneRow+2, downTwoRows+3],
-    [downOneRow+4, downTwoRows+1, downThreeRows],
-    [downTwoRows, downThreeRows-3, downThreeRows+1],
-    [downOneRow-2, downTwoRows-1, downThreeRows-2],
-    [1, downOneRow, downTwoRows-3]
-]
-const roja = [
-    [2, downOneRow, downOneRow+2],
-    [1, 3, downOneRow+1]
-]
-const rosada = [
-    [2, downOneRow+1, downTwoRows],
-    [downOneRow+2, downOneRow+3, downTwoRows-1],
-    [downOneRow, downTwoRows+1, downTwoRows+2],
-    [downOneRow+1, downTwoRows, downThreeRows-1],
-    [downOneRow+2, downTwoRows-2, downTwoRows-1],
-    [downOneRow-1, downOneRow, downTwoRows+1]
-]
-const naranja = [
-    [downOneRow, downOneRow+1, downOneRow+2],
-    [downOneRow+1, downOneRow+2, downTwoRows+1],
-    [downOneRow+2, downTwoRows, downTwoRows+1],
-    [downTwoRows-1, downTwoRows, downTwoRows+1],
-    [downOneRow, downTwoRows-1, downTwoRows],
-    [downOneRow, downOneRow+1, downTwoRows-1]
-]
-const amarilla = [
-    [downOneRow, downOneRow+2, downTwoRows],
-    [downOneRow+1, downTwoRows-1, downTwoRows+1]
-]
-const cian = [
-    [downOneRow-1, downOneRow+1, downOneRow+3],
-    [2, downOneRow+2, downTwoRows+2],
-    [downOneRow+3, downTwoRows+1, downThreeRows-1],
-    [downTwoRows-2, downTwoRows, downTwoRows+2],
-    [downOneRow-1, downTwoRows-1, downThreeRows-1],
-    [2, downOneRow, downTwoRows-2]
-]
-const blanca = [
-    [downOneRow+1],
-    [downTwoRows]
-]
+const violeta = {
+    className: 'violet',
+        shapeMatrix: [
+        [0, 4, downOneRow+1],
+        [3, downOneRow+2, downTwoRows+3],
+        [downOneRow+4, downTwoRows+1, downThreeRows],
+        [downTwoRows, downThreeRows-3, downThreeRows+1],
+        [downOneRow-2, downTwoRows-1, downThreeRows-2],
+        [1, downOneRow, downTwoRows-3]
+    ]
+}
+const roja = {
+    className: 'red',
+    shapeMatrix: [
+        [2, downOneRow, downOneRow+2],
+        [1, 3, downOneRow+1]
+    ]
+}
+const rosada = {
+    className: 'pink',
+    shapeMatrix: [
+        [2, downOneRow+1, downTwoRows],
+        [downOneRow+2, downOneRow+3, downTwoRows-1],
+        [downOneRow, downTwoRows+1, downTwoRows+2],
+        [downOneRow+1, downTwoRows, downThreeRows-1],
+        [downOneRow+2, downTwoRows-2, downTwoRows-1],
+        [downOneRow-1, downOneRow, downTwoRows+1]
+    ]
+}
+const naranja = {
+    className: 'orange',
+    shapeMatrix: [
+        [downOneRow, downOneRow+1, downOneRow+2],
+        [downOneRow+1, downOneRow+2, downTwoRows+1],
+        [downOneRow+2, downTwoRows, downTwoRows+1],
+        [downTwoRows-1, downTwoRows, downTwoRows+1],
+        [downOneRow, downTwoRows-1, downTwoRows],
+        [downOneRow, downOneRow+1, downTwoRows-1]
+    ]
+}
+const amarilla = {
+    className: 'yellow',
+    shapeMatrix: [
+        [downOneRow, downOneRow+2, downTwoRows],
+        [downOneRow+1, downTwoRows-1, downTwoRows+1]
+    ]
+}
+const cian = {
+    className: 'cyan',
+    shapeMatrix: [
+        [downOneRow-1, downOneRow+1, downOneRow+3],
+        [2, downOneRow+2, downTwoRows+2],
+        [downOneRow+3, downTwoRows+1, downThreeRows-1],
+        [downTwoRows-2, downTwoRows, downTwoRows+2],
+        [downOneRow-1, downTwoRows-1, downThreeRows-1],
+        [2, downOneRow, downTwoRows-2]
+    ]
+}
+const blanca = {
+    className: 'white',
+    shapeMatrix: [
+        [downOneRow+1],
+        [downTwoRows]
+    ]
+}
 const fichas = [violeta, roja, rosada, naranja, amarilla, cian, blanca]
+
+/* console.log('Color random: ', fichas[Math.floor(Math.random() * fichas.length)].className) */
+
+/* Ficha aleatoria --> 
+fichas[Math.floor(Math.random() * fichas.length)]
+NO guardar en variable, pierde la variación!*/
+
+
 
 function newUpTriangle() {
     const upTriangle = document.createElement('div')
@@ -99,5 +128,4 @@ gridValues.forEach(row => {
 
 //Select all triangles
 const allGridTriangles = Array.from(grid.querySelectorAll('.triangle'))
-console.log('All my grid triangles: ', allGridTriangles)
 
