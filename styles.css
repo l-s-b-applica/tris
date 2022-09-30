@@ -35,6 +35,7 @@ body {
 
 .column svg { margin-bottom: 3rem; }
 
+/* Sample block SVGs */
 #teeth polygon { fill: var(--MyCyan); }
 #claw polygon { fill: var(--MyViolet); }
 #sierpinski polygon { fill: var(--MyRed); }
@@ -42,6 +43,26 @@ body {
 #fish polygon { fill: var(--MyPink); }
 #hump polygon { fill: var(--MyOrange); }
 #single polygon { fill: silver; }
+
+/* Actual grid shapes' colors*/
+.up {border-bottom-color: dimgray}
+.down {border-top-color: gray}
+
+.up.triangle.cyan { border-bottom-color: var(--MyCyan); }
+.up.triangle.violet { border-bottom-color: var(--MyViolet); }
+.up.triangle.red { border-bottom-color: var(--MyRed); }
+.up.triangle.yellow { border-bottom-color: var(--MyYellow); }
+.up.triangle.pink { border-bottom-color: var(--MyPink); }
+.up.triangle.orange { border-bottom-color: var(--MyOrange); }
+.up.triangle.silver { border-bottom-color: silver; }
+
+.down.triangle.cyan { border-top-color: var(--MyCyan); }
+.down.triangle.violet { border-top-color: var(--MyViolet); }
+.down.triangle.red { border-top-color: var(--MyRed); }
+.down.triangle.yellow { border-top-color: var(--MyYellow); }
+.down.triangle.pink { border-top-color: var(--MyPink); }
+.down.triangle.orange { border-top-color: var(--MyOrange); }
+.down.triangle.silver { border-top-color: silver; }
 
 /* MAIN GRID */
 
