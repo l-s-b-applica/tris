@@ -18,9 +18,10 @@ const gridValues = [
     [0,1,0,1,0,1,0,1,0,1,0,1,0]
 ]
 
-const leftFall = [14, 16, 18, 20, 22, 24, 24, 22, 20, 18, 16, 14] // (triangles per row + 1)
-const rightFall = [12, 14, 16, 18, 20, 22, 22, 20, 18, 16, 14, 12] // (triangles per row - 1)
-const verticalFall = [14, 14, 18, 18, 22, 22, 24, 20, 20, 16, 16, 12] // (zigzag: +1 then -1)
+const regularRowJump = [14, 16, 18, 20, 22, 24, 24, 22, 20, 18, 16, 14] // triangles per row (+-0)
+const leftFall = [15, 17, 19, 21, 23, 25, 25, 23, 21, 19, 17, 15] // (triangles per row + 2)
+const rightFall = [13, 15, 17, 19, 21, 23, 23, 21, 19, 17, 15, 13] // (triangles per row - 2)
+const verticalFall = [13, 13, 19, 19, 23, 23, 25, 21, 21, 17, 17, 13] // (zigzag: +2 then -2)
 
 let currentFall = leftFall
 let currentRow = 0
@@ -31,7 +32,7 @@ const downThreeRows = currentFall[currentRow] + currentFall[currentRow+1] + curr
 const violeta = {
     className: 'violet',
         shapeMatrix: [
-        [0, 4, downOneRow+2],
+        [0, 4, downOneRow+1],
         [3, downOneRow+2, downTwoRows+3],
         [downOneRow+4, downTwoRows+1, downThreeRows],
         [downTwoRows, downThreeRows-3, downThreeRows+1],
@@ -49,7 +50,7 @@ const roja = {
 const rosada = {
     className: 'pink',
     shapeMatrix: [
-        [2, downOneRow+1, downTwoRows],
+        [2, downTwoRows, downOneRow+1,],
         [downOneRow+2, downOneRow+3, downTwoRows-1],
         [downOneRow, downTwoRows+1, downTwoRows+2],
         [downOneRow+1, downTwoRows, downThreeRows-1],
@@ -94,12 +95,10 @@ const blanca = {
     ]
 }
 const fichas = [violeta, roja, rosada, naranja, amarilla, cian, blanca]
-let currentShape = fichas[0];
-/* console.log('Color random: ', fichas[Math.floor(Math.random() * fichas.length)].className) */
-
-/* Ficha aleatoria --> 
-fichas[Math.floor(Math.random() * fichas.length)]
-NO guardar en variable, pierde la variación!*/
+let random = Math.floor(Math.random() * fichas.length)
+let currentShape = fichas[random]
+let currentPosition = 0
+let currentRotation = 0
 
 function newUpTriangle() {
     const upTriangle = document.createElement('div')
@@ -128,6 +127,31 @@ gridValues.forEach(row => {
 const gridTriangles = Array.from(grid.querySelectorAll('.triangle'))
 
 function printShape() {
-    currentShape.shapeMatrix[0].forEach(space => gridTriangles[space].classList.add(currentShape.className))
+    currentShape.shapeMatrix[currentRotation].forEach(space => gridTriangles[space].classList.add(currentShape.className))
+}
+function wipeShape() {
+    currentShape.shapeMatrix[currentRotation].forEach(space => gridTriangles[space].classList.remove(currentShape.className))
 }
 
+printShape()
+
+document.addEventListener('keyup', (e) => {
+    if(['A', 'a', 'ArrowLeft'].includes(e.key)) {
+        wipeShape()
+        currentRotation === 0 ? ( currentRotation = currentShape.shapeMatrix.length - 1 ) : ( currentRotation-- )
+        printShape()
+    }
+    if(['D', 'd', 'ArrowRight'].includes(e.key)) {
+        wipeShape()
+        currentRotation === currentShape.shapeMatrix.length - 1 ? ( currentRotation = 0 ) : ( currentRotation++ )
+        printShape()
+    }
+    if(e.code === 'Space') {
+        wipeShape()
+        currentShape = null
+        let random = Math.floor(Math.random() * fichas.length)
+        currentShape = fichas[random]
+        printShape()
+    }
+  });
+  
