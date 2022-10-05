@@ -4,12 +4,28 @@ const start = document.querySelector('#start')
 const score = document.querySelector('#score')
 const grid = document.getElementById('grid')
 
-const regularRowJump = [14, 16, 18, 20, 22, 24, 24, 22, 20, 18, 16, 14] // triangles per row (+-0)
-const leftFall = [15, 17, 19, 21, 23, 25, 25, 23, 21, 19, 17, 15] // (triangles per row + 2)
-const rightFall = [13, 15, 17, 19, 21, 23, 23, 21, 19, 17, 15, 13] // (triangles per row - 2)
-const verticalFall = [13, 13, 19, 19, 23, 23, 25, 21, 21, 17, 17, 13] // (zigzag: +2 then -2)
+// FALL CONFIG
+const leftFall = [15, 17, 19, 21, 23, 24, 23, 21, 19, 17, 15, 13]
+const rightFall = [13, 15, 17, 19, 21, 22, 21, 19, 17, 15, 13, 11]
 
-let currentFall = leftFall
+let currentFall, startSpot, verticalFallEnabled
+
+(function enableLeftFall() { // IIFE: Setting left fall as default
+    verticalFallEnabled = false
+    currentFall = leftFall
+    startSpot = 0
+})()
+
+function enableRightFall() {
+    verticalFallEnabled = false
+    currentFall = rightFall
+    startSpot = 8
+}
+function enableVerticalFall() {
+    verticalFallEnabled = true
+    startSpot = 4
+}
+
 let currentBaseRow = 0
 const downOneRow = currentFall[currentBaseRow]
 const downTwoRows = currentFall[currentBaseRow] + currentFall[currentBaseRow+1]
@@ -20,7 +36,7 @@ function Shape(className, rotations){
     this.rotations = []
     rotations.forEach(r => {
         let triangles = []
-        r.forEach( t => triangles.push({spot: t[0], row: currentBaseRow + t[1]}) )
+        r.forEach( t => triangles.push({spot: startSpot + t[0], row: currentBaseRow + t[1]}) )
         this.rotations.push(r)
     })
 }
@@ -156,45 +172,41 @@ gridValues.forEach(row => {
 const gridTriangles = Array.from(grid.querySelectorAll('.triangle'))
 let playing = null
 
-function printShape() {
-    currentShape.rotations[currentRotation].forEach(space => {
-/*         let i = 0
-        while(currentPosition > fallFilter[i]) {
-            console.log('skip...')
-            i++
-        }
-        console.log('space[1]?', space[1])
-        i += space[1]
-        console.log('i now? ', i)
-        let thisRowsFall = currentFall[i+currentBaseRow]
-        console.log('space now? ', space[0])
-        currentPosition += thisRowsFall */
-            gridTriangles[space[0] + currentPosition].classList.add(currentShape.className)
-        }
-    )
+function printShape(fall) {
+    if (fall) {
+        currentShape.rotations.forEach(r => {
+                r.forEach(space => {
+                space[0] += currentFall[space[1]]
+                space[1]++
+            })
+        })
+    }
+        currentShape.rotations[currentRotation].forEach(space => {
+                gridTriangles[startSpot + space[0] + currentPosition].classList.add(currentShape.className)
+            }
+        )
 }
 
 function wipeShape() {
-    currentShape.rotations[currentRotation].forEach(space => gridTriangles[space[0] + currentPosition].classList.remove(currentShape.className)) //fix.
+    currentShape.rotations[currentRotation].forEach(space => gridTriangles[startSpot + space[0] + currentPosition].classList.remove(currentShape.className))
 }
 
-const fallFilter = [13, 28, 45, 64, 85, 108, 131, 152, 171, 188, 203, 216]
-fallFilter
 function fall() {
     return setInterval(() => {
         wipeShape()
-        printShape()
+        printShape(true)
         currentBaseRow++
-    }, 700)
+        if (verticalFallEnabled) { currentFall === leftFall ? (currentFall = rightFall) : (currentFall = leftFall) }
+    }, 1500)
 }
 
 function playPause() {
     if (playing === null) {
-        console.log('playing is null')
+        console.log('Play')
         printShape()
         playing = fall()
     } else {
-        console.log('playing is not null: ', playing)
+        console.log('Pause')
         clearInterval(playing)
         playing = null
     }
@@ -204,15 +216,27 @@ start.addEventListener('click', playPause)
 
 // LEFT ROTATION
 document.addEventListener('keyup', (e) => {
-    if(['A', 'a', 'ArrowLeft'].includes(e.key)) {
+    if(['A', 'a'].includes(e.key)) {
         wipeShape()
         currentRotation === 0 ? ( currentRotation = currentShape.rotations.length - 1 ) : ( currentRotation-- )
-        printShape()
+        printShape(false, true)
     }
 // RIGHT ROTATION
-    if(['D', 'd', 'ArrowRight'].includes(e.key)) {
+    if(['D', 'd'].includes(e.key)) {
         wipeShape()
         currentRotation === currentShape.rotations.length - 1 ? ( currentRotation = 0 ) : ( currentRotation++ )
+        printShape()
+    }
+// LEFT SCROLL
+    if((e.key === "ArrowLeft")) {
+        wipeShape()
+        currentShape.rotations[currentRotation].forEach(space => {space[0] -= 2})
+        printShape()
+    }
+// RIGHT SCROLL
+    if((e.key === "ArrowRight")) {
+        wipeShape()
+        currentShape.rotations[currentRotation].forEach(space => {space[0] += 2})
         printShape()
     }
 // CHANGE SHAPE (just for showcasing purposes)
