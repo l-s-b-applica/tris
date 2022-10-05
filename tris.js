@@ -182,7 +182,7 @@ function printShape(fall) {
         })
     }
         currentShape.rotations[currentRotation].forEach(space => {
-                gridTriangles[startSpot + space[0] + currentPosition].classList.add(currentShape.className)
+                gridTriangles[startSpot + space[0] + currentPosition].classList.add(currentShape.className) //Acá debe ser el bug de las rotaciones
             }
         )
 }
