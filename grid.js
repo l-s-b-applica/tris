@@ -46,5 +46,3 @@ gridValues.forEach(row => {
 //Select all triangles
 const gridTriangles = Array.from(grid.querySelectorAll('.triangle'))
 let playing = null
-
-
