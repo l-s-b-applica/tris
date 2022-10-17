@@ -10,11 +10,11 @@ const rightFall = [13, 15, 17, 19, 21, 22, 21, 19, 17, 15, 13, 11]
 
 let currentFall, startSpot, verticalFallEnabled
 
-(function enableLeftFall() { // IIFE: Setting left fall as default
+function enableLeftFall() { // IIFE: Setting left fall as default
     verticalFallEnabled = false
     currentFall = leftFall
     startSpot = 0
-})()
+}
 
 function enableRightFall() {
     verticalFallEnabled = false
@@ -25,6 +25,8 @@ function enableVerticalFall() {
     verticalFallEnabled = true
     startSpot = 4
 }
+
+enableLeftFall()
 
 let currentBaseRow = 0
 const downOneRow = currentFall[currentBaseRow]
@@ -172,12 +174,20 @@ gridValues.forEach(row => {
 const gridTriangles = Array.from(grid.querySelectorAll('.triangle'))
 let playing = null
 
-function printShape(fall) {
+function printShape(fall, climb) {
     if (fall) {
         currentShape.rotations.forEach(r => {
                 r.forEach(space => {
                 space[0] += currentFall[space[1]]
                 space[1]++
+            })
+        })
+    }
+    if (climb) {
+        currentShape.rotations.forEach(r => {
+                r.forEach(space => {
+                space[1]--
+                space[0] -= currentFall[space[1]]
             })
         })
     }
@@ -194,10 +204,24 @@ function wipeShape() {
 function fall() {
     return setInterval(() => {
         wipeShape()
-        printShape(true)
+        printShape(true, false)
         currentBaseRow++
         if (verticalFallEnabled) { currentFall === leftFall ? (currentFall = rightFall) : (currentFall = leftFall) }
     }, 1500)
+}
+
+function moveUp() {
+    wipeShape()
+    printShape(false, true)
+    currentBaseRow--
+    if (verticalFallEnabled) { currentFall === leftFall ? (currentFall = rightFall) : (currentFall = leftFall) }
+}
+
+function moveDown() {
+    wipeShape()
+    printShape(true, false)
+    currentBaseRow++
+    if (verticalFallEnabled) { currentFall === leftFall ? (currentFall = rightFall) : (currentFall = leftFall) }
 }
 
 function playPause() {
@@ -214,12 +238,12 @@ function playPause() {
 
 start.addEventListener('click', playPause)
 
-// LEFT ROTATION
 document.addEventListener('keyup', (e) => {
+// LEFT ROTATION
     if(['A', 'a'].includes(e.key)) {
         wipeShape()
         currentRotation === 0 ? ( currentRotation = currentShape.rotations.length - 1 ) : ( currentRotation-- )
-        printShape(false, true)
+        printShape()
     }
 // RIGHT ROTATION
     if(['D', 'd'].includes(e.key)) {
@@ -239,6 +263,11 @@ document.addEventListener('keyup', (e) => {
         currentShape.rotations[currentRotation].forEach(space => {space[0] += 2})
         printShape()
     }
+// VERTICAL SCROLL (For testing purposes)
+// UP SCROLL
+    if((e.key === "ArrowUp")) { moveUp() }
+// DOWN SCROLL
+    if((e.key === "ArrowDown")) { moveDown() }
 // CHANGE SHAPE (just for showcasing purposes)
     if(e.code === 'Space') {
         wipeShape()
