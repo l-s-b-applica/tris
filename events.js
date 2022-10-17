@@ -1,6 +1,7 @@
 // EVENT HANDLERS
 function printShape(fall, climb) {
     if (fall) {
+        if (fallingFlag) { verticalCheck() }
         currentShape.rotations.forEach(r => {
                 r.forEach(space => {
                 space[0] += currentFall[space[1]]
@@ -9,6 +10,7 @@ function printShape(fall, climb) {
         })
     }
     if (climb) {
+        if (climbingFlag) { verticalCheck() }
         currentShape.rotations.forEach(r => {
                 r.forEach(space => {
                 space[1]--
@@ -18,6 +20,8 @@ function printShape(fall, climb) {
     }
         currentShape.rotations[currentRotation].forEach(space => {
             console.log('CURRENT ROTATION: ', currentRotation)
+            console.log('CURRENT SPACE: ', space[0])
+            console.log('CURRENT POSITION: ', currentPosition)
                 gridTriangles[startSpot + space[0] + currentPosition].classList.add(currentShape.className) //Acá debe ser el bug de las rotaciones
             }
         )
@@ -27,27 +31,36 @@ function wipeShape() {
     currentShape.rotations[currentRotation].forEach(space => gridTriangles[startSpot + space[0] + currentPosition].classList.remove(currentShape.className))
 }
 
+function verticalCheck() {
+    if (verticalFallEnabled) { currentFall === leftFall ? (currentFall = rightFall) : (currentFall = leftFall) }
+}
+
+let climbingFlag = false, fallingFlag = true
+
 function fall() {
     return setInterval(() => {
+        if (climbingFlag) { climbingFlag = false }
         wipeShape()
         printShape(true, false)
         currentBaseRow++
-        if (verticalFallEnabled) { currentFall === leftFall ? (currentFall = rightFall) : (currentFall = leftFall) }
+        if (!fallingFlag) { fallingFlag = true }
     }, 1500)
 }
 
 function moveUp() {
+    if (fallingFlag) { fallingFlag = false }
     wipeShape()
     printShape(false, true)
     currentBaseRow--
-    if (verticalFallEnabled) { currentFall === leftFall ? (currentFall = rightFall) : (currentFall = leftFall) }
+    if (!climbingFlag) { climbingFlag = true }
 }
 
 function moveDown() {
+    if (climbingFlag) { climbingFlag = false }
     wipeShape()
     printShape(true, false)
     currentBaseRow++
-    if (verticalFallEnabled) { currentFall === leftFall ? (currentFall = rightFall) : (currentFall = leftFall) }
+    if (!fallingFlag) { fallingFlag = true }
 }
 
 function playPause() {
