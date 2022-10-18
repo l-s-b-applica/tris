@@ -4,7 +4,7 @@ const rightFall = [13, 15, 17, 19, 21, 22, 21, 19, 17, 15, 13, 11]
 
 let currentFall, startSpot, verticalFallEnabled
 
-function enableLeftFall() { // IIFE: Setting left fall as default
+function enableLeftFall() {
     verticalFallEnabled = false
     currentFall = leftFall
     startSpot = 0
