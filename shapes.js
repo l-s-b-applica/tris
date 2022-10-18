@@ -99,5 +99,5 @@ const blanca = new Shape(
 const fichas = [violeta, roja, rosada, naranja, amarilla, cian, blanca]
 let random = Math.floor(Math.random() * fichas.length)
 let currentShape = fichas[random]
-let currentPosition = 0
+let baseColumn = 0
 let currentRotation = 0

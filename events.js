@@ -18,17 +18,16 @@ function printShape(fall, climb) {
             })
         })
     }
-        currentShape.rotations[currentRotation].forEach(space => {
-            console.log('CURRENT ROTATION: ', currentRotation)
-            console.log('CURRENT SPACE: ', space[0])
-            console.log('CURRENT POSITION: ', currentPosition)
-                gridTriangles[startSpot + space[0] + currentPosition].classList.add(currentShape.className) //Acá debe ser el bug de las rotaciones
-            }
-        )
+    console.log('CURRENT ROTATION: ', currentRotation)
+    currentShape.rotations[currentRotation].forEach(space => {
+        console.log(`SPACE No.${currentShape.rotations[currentRotation].indexOf(space)} : `, space[0])
+            gridTriangles[ startSpot + baseColumn + space[0] ].classList.add(currentShape.className)
+        }
+    )
 }
 
 function wipeShape() {
-    currentShape.rotations[currentRotation].forEach(space => gridTriangles[startSpot + space[0] + currentPosition].classList.remove(currentShape.className))
+    currentShape.rotations[currentRotation].forEach(space => gridTriangles[ startSpot + baseColumn + space[0] ].classList.remove(currentShape.className))
 }
 
 function verticalCheck() {
@@ -75,41 +74,47 @@ function playPause() {
     }
 }
 
+function restartShapePosition() {
+    baseColumn = startSpot
+    currentRotation = 0
+}
+
 start.addEventListener('click', playPause)
 
 document.addEventListener('keyup', (e) => {
 // LEFT ROTATION
-    if(['A', 'a'].includes(e.key)) {
+    if(['Q', 'q'].includes(e.key)) {
         wipeShape()
         currentRotation === 0 ? ( currentRotation = currentShape.rotations.length - 1 ) : ( currentRotation-- )
         printShape()
     }
 // RIGHT ROTATION
-    if(['D', 'd'].includes(e.key)) {
+    if(['E', 'e'].includes(e.key)) {
         wipeShape()
         currentRotation === currentShape.rotations.length - 1 ? ( currentRotation = 0 ) : ( currentRotation++ )
         printShape()
     }
 // LEFT SCROLL
-    if((e.key === "ArrowLeft")) {
+    if(['A', 'a', 'ArrowLeft'].includes(e.key)) {
         wipeShape()
-        currentShape.rotations[currentRotation].forEach(space => {space[0] -= 2})
+        baseColumn -= 2
         printShape()
     }
 // RIGHT SCROLL
-    if((e.key === "ArrowRight")) {
+    if(['D', 'd', 'ArrowRight'].includes(e.key)) {
         wipeShape()
-        currentShape.rotations[currentRotation].forEach(space => {space[0] += 2})
+        baseColumn += 2
         printShape()
     }
 // VERTICAL SCROLL (For testing purposes)
 // UP SCROLL
-    if((e.key === "ArrowUp")) { moveUp() }
+    if(['W', 'w', 'ArrowUp'].includes(e.key)) { moveUp() }
 // DOWN SCROLL
-    if((e.key === "ArrowDown")) { moveDown() }
+    if(['ArrowDown', 's', 'S'].includes(e.key)) { moveDown() }
 // CHANGE SHAPE (just for showcasing purposes)
     if(e.code === 'Space') {
         wipeShape()
+        restartShapePosition()
         currentShape = null
         let random = Math.floor(Math.random() * fichas.length)
         currentShape = fichas[random]
