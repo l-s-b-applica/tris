@@ -21,7 +21,7 @@ const violeta = new Shape(
         [[3, 0], [downOneRow+2, 1], [downTwoRows+3, 2]],
         [[downOneRow+4, 1], [downTwoRows+1, 2], [downThreeRows, 3]],
         [[downTwoRows, 2], [downThreeRows-3, 3], [downThreeRows+1, 3]],
-        [[downOneRow-2, 1], [downTwoRows-1, 1], [downThreeRows-2, 2]],
+        [[downOneRow-2, 1], [downTwoRows-1, 2], [downThreeRows-2, 3]],
         [[1, 0], [downOneRow, 1], [downTwoRows-3, 2]]
     ]
 )
@@ -56,7 +56,7 @@ const naranja = new Shape(
         [[downOneRow+2, 1], [downTwoRows, 2], [downTwoRows+1, 2]],
         [[downTwoRows-1, 2], [downTwoRows, 2], [downTwoRows+1, 2]],
         [[downOneRow, 1], [downTwoRows-1, 2], [downTwoRows, 2]],
-        [[downOneRow, 1], [downOneRow+1, 2], [downTwoRows-1, 2]]
+        [[downOneRow, 1], [downOneRow+1, 1], [downTwoRows-1, 2]]
     ]
 )
 

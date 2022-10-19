@@ -18,12 +18,9 @@ function printShape(fall, climb) {
             })
         })
     }
-    console.log('CURRENT ROTATION: ', currentRotation)
     currentShape.rotations[currentRotation].forEach(space => {
-        console.log(`SPACE No.${currentShape.rotations[currentRotation].indexOf(space)} : `, space[0])
-            gridTriangles[ startSpot + baseColumn + space[0] ].classList.add(currentShape.className)
-        }
-    )
+        gridTriangles[ startSpot + baseColumn + space[0] ].classList.add(currentShape.className)
+    })
 }
 
 function wipeShape() {
