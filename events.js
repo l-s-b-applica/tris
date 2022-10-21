@@ -93,21 +93,41 @@ document.addEventListener('keyup', (e) => {
     }
 // LEFT SCROLL
     if(['A', 'a', 'ArrowLeft'].includes(e.key)) {
-        wipeShape()
-        baseColumn -= 2
-        printShape()
+        if(currentShape.rotations[currentRotation].filter(
+            space => leftLimitTriangles.includes(startSpot + baseColumn + space[0])
+        ).length === 0) {
+            wipeShape()
+            baseColumn -= 2
+            printShape()
+        }
     }
 // RIGHT SCROLL
     if(['D', 'd', 'ArrowRight'].includes(e.key)) {
-        wipeShape()
-        baseColumn += 2
-        printShape()
+        if(currentShape.rotations[currentRotation].filter(
+            space => rightLimitTriangles.includes(startSpot + baseColumn + space[0])
+        ).length === 0) {
+            wipeShape()
+            baseColumn += 2
+            printShape()
+        }
     }
 // VERTICAL SCROLL (For testing purposes)
 // UP SCROLL
-    if(['W', 'w', 'ArrowUp'].includes(e.key)) { moveUp() }
+    topLimitTriangles = currentFall === leftFall ? topLimitLeftFall : topLimitRightFall
+    if(
+        ['W', 'w', 'ArrowUp'].includes(e.key) &&
+        currentShape.rotations[currentRotation].filter(
+            space => topLimitTriangles.includes(startSpot + baseColumn + space[0])
+        ).length === 0
+    ) { moveUp() }
 // DOWN SCROLL
-    if(['ArrowDown', 's', 'S'].includes(e.key)) { moveDown() }
+    bottomLimitTriangles = currentFall === leftFall ? bottomLimitLeftFall : bottomLimitRightFall
+    if(
+        ['ArrowDown', 's', 'S'].includes(e.key) &&
+        currentShape.rotations[currentRotation].filter(
+            space => bottomLimitTriangles.includes(startSpot + baseColumn + space[0])
+        ).length === 0
+    ) { moveDown() }
 // CHANGE SHAPE (just for showcasing purposes)
     if(e.code === 'Space') {
         wipeShape()
