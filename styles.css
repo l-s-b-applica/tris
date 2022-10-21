@@ -42,7 +42,7 @@ body {
 #radioactive polygon { fill: var(--MyYellow); }
 #fish polygon { fill: var(--MyPink); }
 #hump polygon { fill: var(--MyOrange); }
-#single polygon { fill: silver; }
+#single polygon { fill: white; }
 
 /* Actual grid shapes' colors*/
 .up {border-bottom-color: dimgray}
@@ -54,7 +54,7 @@ body {
 .up.triangle.yellow { border-bottom-color: var(--MyYellow); }
 .up.triangle.pink { border-bottom-color: var(--MyPink); }
 .up.triangle.orange { border-bottom-color: var(--MyOrange); }
-.up.triangle.silver { border-bottom-color: silver; }
+.up.triangle.white { border-bottom-color: white; }
 
 .down.triangle.cyan { border-top-color: var(--MyCyan); }
 .down.triangle.violet { border-top-color: var(--MyViolet); }
@@ -62,7 +62,7 @@ body {
 .down.triangle.yellow { border-top-color: var(--MyYellow); }
 .down.triangle.pink { border-top-color: var(--MyPink); }
 .down.triangle.orange { border-top-color: var(--MyOrange); }
-.down.triangle.silver { border-top-color: silver; }
+.down.triangle.white { border-top-color: white; }
 
 /* MAIN GRID */
 
@@ -72,6 +72,7 @@ body {
     border-left: 1.5rem solid transparent;
     border-right: 1.5rem solid transparent;
     margin-right: -1.15rem;
+    color: white;
 }
 
 #grid {
