@@ -85,7 +85,7 @@ const cian = new Shape(
 )
 
 const blanca = new Shape(
-    'silver',
+    'white',
     [
         [[downOneRow+1, 1]],
         [[downTwoRows, 2]],
