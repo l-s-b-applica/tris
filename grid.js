@@ -39,12 +39,6 @@ function newTriangle(value, number) {
 
 const leftLimitTriangles = [0,1,13,14,28,29,45,46,64,65,85,86,108,109,131,132,152,153,171,172,188,189,203,204]
 const rightLimitTriangles = [11,12,26,27,43,44,62,63,83,84,106,107,129,130,150,151,169,170,186,187,201,202,214,215]
-// Top limits are for testing purposes, meant to be deleted later.
-const topLimitLeftFall = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,28,29,45,46,64,65,85,86]
-const topLimitRightFall = [0,1,2,3,4,5,6,7,8,9,10,11,12,26,27,43,44,62,63,83,84,106,107]
-//
-const bottomLimitLeftFall = [107,129,130,150,151,169,170,186,187,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215]
-const bottomLimitRightFall = [85,108,109,131,132,152,153,171,172,188,189,203,204,205,206,207,208,209,210,211,212,213,214,215]
 
 var accTriangleNumber = 0
 gridValues.forEach(row => {
