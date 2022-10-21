@@ -1,5 +1,4 @@
 // SHAPES CONFIG
-let currentBaseRow = 0
 const downOneRow = currentFall[currentBaseRow]
 const downTwoRows = currentFall[currentBaseRow] + currentFall[currentBaseRow+1]
 const downThreeRows = currentFall[currentBaseRow] + currentFall[currentBaseRow+1] + currentFall[currentBaseRow+2]
@@ -96,8 +95,21 @@ const blanca = new Shape(
     ]
 )
 
+let currentShape
 const fichas = [violeta, roja, rosada, naranja, amarilla, cian, blanca]
-let random = Math.floor(Math.random() * fichas.length)
-let currentShape = fichas[random]
-let baseColumn = 0
-let currentRotation = 0
+
+function newShape() {
+    /* fichas.forEach(
+        shape => shape.rotations.forEach(
+            rotation => rotation.forEach(
+                tile => {
+                    tile[2] = 0
+                }
+            )
+        )
+    ) */
+    let random = Math.floor(Math.random() * fichas.length)
+    currentShape = fichas[random]
+}
+
+newShape()
