@@ -99,7 +99,7 @@ let currentShape
 const fichas = [violeta, roja, rosada, naranja, amarilla, cian, blanca]
 
 function newShape() {
-    /* fichas.forEach(
+    fichas.forEach(
         shape => shape.rotations.forEach(
             rotation => rotation.forEach(
                 tile => {
@@ -107,7 +107,7 @@ function newShape() {
                 }
             )
         )
-    ) */
+    )
     let random = Math.floor(Math.random() * fichas.length)
     currentShape = fichas[random]
 }

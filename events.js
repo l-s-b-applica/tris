@@ -3,77 +3,70 @@ function printShape(fall, climb) {
     if (fall) {
         if (fallingFlag) { verticalCheck() }
         currentShape.rotations.forEach(r => {
-                r.forEach(space => {
-                space[0] += currentFall[space[1]]
-                space[1]++
+                r.forEach(tile => {
+                tile[2] += currentFall[tile[1] + currentBaseRow]
             })
         })
+        currentBaseRow++
     }
     if (climb) {
+        currentBaseRow--
         if (climbingFlag) { verticalCheck() }
         currentShape.rotations.forEach(r => {
-                r.forEach(space => {
-                space[1]--
-                space[0] -= currentFall[space[1]]
+                r.forEach(tile => {
+                tile[2] -= currentFall[tile[1] + currentBaseRow]
             })
         })
     }
-    currentShape.rotations[currentRotation].forEach(space => {
-        gridTriangles[ startSpot + baseColumn + space[0] ].classList.add(currentShape.className)
+    currentShape.rotations[currentRotation].forEach(tile => {
+        gridTriangles[ startSpot + variableColumn + tile[0] + tile[2] ].classList.add(currentShape.className)
     })
 }
 
 function wipeShape() {
-    currentShape.rotations[currentRotation].forEach(space => gridTriangles[ startSpot + baseColumn + space[0] ].classList.remove(currentShape.className))
+    currentShape.rotations[currentRotation].forEach(
+        tile => gridTriangles[ startSpot + variableColumn + tile[0] + tile[2] ].classList.remove(currentShape.className)
+    )
 }
 
-function verticalCheck() {
-    if (verticalFallEnabled) { currentFall === leftFall ? (currentFall = rightFall) : (currentFall = leftFall) }
-}
-
-let climbingFlag = false, fallingFlag = true
+/* function freeze() {
+    if (
+        currentShape.rotations[currentRotation].some(
+            tile => document.querySelector(`#${startSpot+variableColumn+tile[0]+tile[2] }`).frozen === true
+        ) || currentShape.rotations[currentRotation])
+} */
 
 function fall() {
     return setInterval(() => {
         if (climbingFlag) { climbingFlag = false }
         wipeShape()
         printShape(true, false)
-        currentBaseRow++
         if (!fallingFlag) { fallingFlag = true }
     }, 1500)
 }
 
 function moveUp() {
-    if (fallingFlag) { fallingFlag = false }
+    if (fallingFlag) { fallingFlag = false } // Not falling anymore
     wipeShape()
     printShape(false, true)
-    currentBaseRow--
-    if (!climbingFlag) { climbingFlag = true }
+    if (!climbingFlag) { climbingFlag = true } // From now on, climbing
 }
 
 function moveDown() {
-    if (climbingFlag) { climbingFlag = false }
+    if (climbingFlag) { climbingFlag = false } // Not climbing anymore
     wipeShape()
     printShape(true, false)
-    currentBaseRow++
-    if (!fallingFlag) { fallingFlag = true }
+    if (!fallingFlag) { fallingFlag = true } // From now on, falling
 }
 
 function playPause() {
     if (playing === null) {
-        console.log('Play')
         printShape()
         playing = fall()
     } else {
-        console.log('Pause')
         clearInterval(playing)
         playing = null
     }
-}
-
-function restartShapePosition() {
-    baseColumn = startSpot
-    currentRotation = 0
 }
 
 start.addEventListener('click', playPause)
@@ -94,47 +87,43 @@ document.addEventListener('keyup', (e) => {
 // LEFT SCROLL
     if(['A', 'a', 'ArrowLeft'].includes(e.key)) {
         if(currentShape.rotations[currentRotation].filter(
-            space => leftLimitTriangles.includes(startSpot + baseColumn + space[0])
+            tile => leftLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
         ).length === 0) {
             wipeShape()
-            baseColumn -= 2
+            variableColumn -= 2
             printShape()
         }
     }
 // RIGHT SCROLL
     if(['D', 'd', 'ArrowRight'].includes(e.key)) {
         if(currentShape.rotations[currentRotation].filter(
-            space => rightLimitTriangles.includes(startSpot + baseColumn + space[0])
+            tile => rightLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
         ).length === 0) {
             wipeShape()
-            baseColumn += 2
+            variableColumn += 2
             printShape()
         }
     }
 // VERTICAL SCROLL (For testing purposes)
 // UP SCROLL
-    topLimitTriangles = currentFall === leftFall ? topLimitLeftFall : topLimitRightFall
     if(
         ['W', 'w', 'ArrowUp'].includes(e.key) &&
         currentShape.rotations[currentRotation].filter(
-            space => topLimitTriangles.includes(startSpot + baseColumn + space[0])
+            tile => topLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
         ).length === 0
     ) { moveUp() }
 // DOWN SCROLL
-    bottomLimitTriangles = currentFall === leftFall ? bottomLimitLeftFall : bottomLimitRightFall
     if(
         ['ArrowDown', 's', 'S'].includes(e.key) &&
         currentShape.rotations[currentRotation].filter(
-            space => bottomLimitTriangles.includes(startSpot + baseColumn + space[0])
+            tile => bottomLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
         ).length === 0
     ) { moveDown() }
 // CHANGE SHAPE (just for showcasing purposes)
     if(e.code === 'Space') {
         wipeShape()
         restartShapePosition()
-        currentShape = null
-        let random = Math.floor(Math.random() * fichas.length)
-        currentShape = fichas[random]
+        newShape()
         printShape()
     }
   });
