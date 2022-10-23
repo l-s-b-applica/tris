@@ -1,7 +1,7 @@
 // EVENT HANDLERS
 function printShape(fall, climb) {
     if (fall) {
-        if (fallingFlag) { verticalCheck() }
+        if (fallingFlag) { fallSwitch() }
         currentShape.rotations.forEach(r => {
                 r.forEach(tile => {
                 tile[2] += currentFall[tile[1] + currentBaseRow]
@@ -11,7 +11,7 @@ function printShape(fall, climb) {
     }
     if (climb) {
         currentBaseRow--
-        if (climbingFlag) { verticalCheck() }
+        if (climbingFlag) { fallSwitch() }
         currentShape.rotations.forEach(r => {
                 r.forEach(tile => {
                 tile[2] -= currentFall[tile[1] + currentBaseRow]
@@ -72,6 +72,7 @@ function playPause() {
 start.addEventListener('click', playPause)
 
 document.addEventListener('keyup', (e) => {
+    let thisShape = currentShape.rotations[currentRotation]
 // LEFT ROTATION
     if(['Q', 'q'].includes(e.key)) {
         wipeShape()
@@ -86,7 +87,7 @@ document.addEventListener('keyup', (e) => {
     }
 // LEFT SCROLL
     if(['A', 'a', 'ArrowLeft'].includes(e.key)) {
-        if(currentShape.rotations[currentRotation].filter(
+        if(thisShape.filter(
             tile => leftLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
         ).length === 0) {
             wipeShape()
@@ -96,7 +97,7 @@ document.addEventListener('keyup', (e) => {
     }
 // RIGHT SCROLL
     if(['D', 'd', 'ArrowRight'].includes(e.key)) {
-        if(currentShape.rotations[currentRotation].filter(
+        if(thisShape.filter(
             tile => rightLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
         ).length === 0) {
             wipeShape()
@@ -108,14 +109,14 @@ document.addEventListener('keyup', (e) => {
 // UP SCROLL
     if(
         ['W', 'w', 'ArrowUp'].includes(e.key) &&
-        currentShape.rotations[currentRotation].filter(
+        thisShape.filter(
             tile => topLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
         ).length === 0
     ) { moveUp() }
 // DOWN SCROLL
     if(
         ['ArrowDown', 's', 'S'].includes(e.key) &&
-        currentShape.rotations[currentRotation].filter(
+        thisShape.filter(
             tile => bottomLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
         ).length === 0
     ) { moveDown() }
