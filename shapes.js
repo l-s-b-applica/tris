@@ -12,7 +12,10 @@ function Shape(className, rotations){
         this.rotations.push(r)
     })
 }
-
+/*
+Shape.rotations[currentRotation][currentTile]:
+[initial absolute position, initial absolute row, current absolute increment(starts at 0)]
+*/
 const violeta = new Shape(
     'violet',
     [
