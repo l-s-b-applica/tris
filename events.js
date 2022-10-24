@@ -29,26 +29,36 @@ function wipeShape() {
     )
 }
 
-/* function freeze() {
-    if (
-        currentShape.rotations[currentRotation].some(
-            tile => document.querySelector(`#${startSpot+variableColumn+tile[0]+tile[2] }`).frozen === true
-        ) || currentShape.rotations[currentRotation])
-} */
+function freeze() {
+        currentShape.rotations[currentRotation].forEach(
+            tile => gridTriangles[ startSpot + variableColumn + tile[0] + tile[2] ].setAttribute('frozen', true)
+        )
+        restartShapePosition()
+        newShape()
+        printShape()
+}
 
 function fall() {
     return setInterval(() => {
         let thisShape = currentShape.rotations[currentRotation]
+        let bottomCondition = thisShape.some(
+            tile => bottomLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
+        )
+        let frozenTouchCondition = thisShape.some(
+            tile => gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + currentFall[tile[1] + currentBaseRow]] &&
+            gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + currentFall[tile[1] + currentBaseRow]].hasAttribute('frozen')
+        )
         if (climbingFlag) { climbingFlag = false }
         if (verticalFallEnabled) { limitSwitch() }
-        if (
-            thisShape.filter(
-                tile => bottomLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
-            ).length === 0
-        ) {
+        // Check for freeze conditions and freeze, else move down
+        if (bottomCondition) {
+            freeze()
+        } else if (frozenTouchCondition) {
+            freeze()
+        } else {  
             wipeShape()
             printShape(true, false)
-        }
+         }
         if (!fallingFlag) { fallingFlag = true }
     }, 1500)
 }
