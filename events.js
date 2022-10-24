@@ -38,10 +38,17 @@ function wipeShape() {
 
 function fall() {
     return setInterval(() => {
+        let thisShape = currentShape.rotations[currentRotation]
         if (climbingFlag) { climbingFlag = false }
-        wipeShape()
         if (verticalFallEnabled) { limitSwitch() }
-        printShape(true, false)
+        if (
+            thisShape.filter(
+                tile => bottomLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
+            ).length === 0
+        ) {
+            wipeShape()
+            printShape(true, false)
+        }
         if (!fallingFlag) { fallingFlag = true }
     }, 1500)
 }
@@ -49,7 +56,6 @@ function fall() {
 function moveUp() {
     if (fallingFlag) { fallingFlag = false } // Not falling anymore
     wipeShape()
-    if (verticalFallEnabled) { limitSwitch() }
     printShape(false, true)
     if (!climbingFlag) { climbingFlag = true } // From now on, climbing
 }
@@ -57,7 +63,6 @@ function moveUp() {
 function moveDown() {
     if (climbingFlag) { climbingFlag = false } // Not climbing anymore
     wipeShape()
-    if (verticalFallEnabled) { limitSwitch() }
     printShape(true, false)
     if (!fallingFlag) { fallingFlag = true } // From now on, falling
 }
@@ -110,19 +115,24 @@ document.addEventListener('keyup', (e) => {
     }
 // VERTICAL SCROLL (For testing purposes)
 // UP SCROLL
-    if(
-        ['W', 'w', 'ArrowUp'].includes(e.key) &&
-        thisShape.filter(
-            tile => topLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
-        ).length === 0
-    ) { moveUp() }
+    if(['W', 'w', 'ArrowUp'].includes(e.key)) {
+        if (verticalFallEnabled) { limitSwitch() }
+        if (
+            thisShape.filter(
+                tile => topLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
+            ).length === 0
+        ) { moveUp() }
+    }
 // DOWN SCROLL
-    if(
-        ['ArrowDown', 's', 'S'].includes(e.key) &&
-        thisShape.filter(
-            tile => bottomLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
-        ).length === 0
-    ) { moveDown() }
+    if(['ArrowDown', 's', 'S'].includes(e.key)) {
+        if (verticalFallEnabled) { limitSwitch() }
+        if (
+            thisShape.filter(
+                tile => bottomLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
+            ).length === 0
+        ) { moveDown() }
+    }
+    
 // CHANGE SHAPE (just for showcasing purposes)
     if(e.code === 'Space') {
         wipeShape()
