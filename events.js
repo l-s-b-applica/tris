@@ -40,6 +40,7 @@ function fall() {
     return setInterval(() => {
         if (climbingFlag) { climbingFlag = false }
         wipeShape()
+        if (verticalFallEnabled) { limitSwitch() }
         printShape(true, false)
         if (!fallingFlag) { fallingFlag = true }
     }, 1500)
@@ -48,6 +49,7 @@ function fall() {
 function moveUp() {
     if (fallingFlag) { fallingFlag = false } // Not falling anymore
     wipeShape()
+    if (verticalFallEnabled) { limitSwitch() }
     printShape(false, true)
     if (!climbingFlag) { climbingFlag = true } // From now on, climbing
 }
@@ -55,6 +57,7 @@ function moveUp() {
 function moveDown() {
     if (climbingFlag) { climbingFlag = false } // Not climbing anymore
     wipeShape()
+    if (verticalFallEnabled) { limitSwitch() }
     printShape(true, false)
     if (!fallingFlag) { fallingFlag = true } // From now on, falling
 }
