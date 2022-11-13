@@ -6,18 +6,18 @@ const grid = document.getElementById('grid')
 
 // GRID RENDERING
 const gridValues = [
-    [1,0,1,0,1,0,1,0,1,0,1,0,1],
-    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1],
-    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0],
-    [0,1,0,1,0,1,0,1,0,1,0,1,0]
+    [1,0,1,0,1,0,1,0,1,0,1,0,1], // 13
+    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1], // 15
+    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1], // 17
+    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1], // 19
+    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1], // 21
+    [1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1], // 23
+    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0], // 23
+    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0], // 21
+    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0], // 19
+    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0,1,0], // 17
+    [0,1,0,1,0,1,0,1,0,1,0,1,0,1,0], // 15
+    [0,1,0,1,0,1,0,1,0,1,0,1,0] // 13
 ]
 
 function newTriangle(value, number) {
@@ -46,10 +46,11 @@ gridValues.forEach(row => {
     newRow.classList.add('gridRow', `row${gridValues.indexOf(row) + 1}`)
     row.forEach(triangleValue => {
         const thisTriangle = newRow.appendChild(newTriangle(triangleValue, accTriangleNumber))
+        thisTriangle.setAttribute('row', gridValues.indexOf(row)+1)
         accTriangleNumber++
     })
 })
 
 //Select all triangles
-const gridTriangles = Array.from(grid.querySelectorAll('.triangle'))
+let gridTriangles = Array.from(grid.querySelectorAll('.triangle')) //IMPORTANTE QUE QUEDE EN LET (después se va a alterar)
 let playing = null
