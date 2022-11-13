@@ -3,7 +3,7 @@ const clack = new Audio('./assets/lock.mp3')
 const knock = new Audio('./assets/knock.mp3')
 
 // EVENT HANDLERS
-function printShape(fall, climb) {
+function printShape(fall, climb, newPiece) {
     if (fall) {
         if (fallingFlag) { fallSwitch() }
         currentShape.rotations.forEach(r => {
@@ -24,14 +24,16 @@ function printShape(fall, climb) {
     }
     currentShape.rotations[currentRotation].forEach(tile => {
         let tilePosition = gridTriangles[ startSpot + variableColumn + tile[0] + tile[2] ]
-        if (tilePosition.hasAttribute('frozen')) { gameOver() }
+        if (newPiece && tilePosition.hasAttribute('frozen')) { gameOver() }
         tilePosition.classList.add(currentShape.className)
     })
 }
 
-function gameOver() {
+async function gameOver() {
+    await playPause()
     location.reload()
-    alert('Perdiste! Empezar de nuevo?')
+    const gameOverAlert = () => alert('Perdiste! Empezar de nuevo?')
+    gameOverAlert()
 }
 
 function wipeShape() {
@@ -90,7 +92,7 @@ function freeze() {
     rows.forEach(function(row) { checkForFullRows(row) })
     restartShapePosition()
     newShape()
-    printShape()
+    printShape(false, false, true)
 }
 
 function fall() {
