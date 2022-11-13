@@ -98,7 +98,8 @@ const blanca = new Shape(
     ]
 )
 
-let currentShape
+let currentShape, random, nextRandom
+const colors = ['violet', 'red', 'pink', 'orange', 'yellow', 'cyan', 'white']
 const fichas = [violeta, roja, rosada, naranja, amarilla, cian, blanca]
 
 function newShape() {
@@ -111,7 +112,8 @@ function newShape() {
             )
         )
     )
-    let random = Math.floor(Math.random() * fichas.length)
+    random = nextRandom ? nextRandom : Math.floor(Math.random() * fichas.length)
+    nextRandom = Math.floor(Math.random() * fichas.length)
     currentShape = fichas[random]
 }
 
