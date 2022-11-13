@@ -64,17 +64,9 @@ function checkForFullRows(thisRow) {
                     let suitableToFall = true
                     let fallingPlace = null
                     if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
-                if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
-                    if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
-                if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
-                    if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
                     if (suitableToFall) {
                         fallingPlace = gridTriangles[parseInt(tile.id) + parseInt(currentFall[thisRow-2])]
                         if (fallingPlace.hasAttribute('frozen')) { suitableToFall = false }
-                        if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
-                    if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
-                        if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
-                    if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
                         if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
                     }
                     if (suitableToFall) { // If free to fall, then fall, on an individual basis
