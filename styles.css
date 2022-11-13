@@ -45,8 +45,8 @@ body {
 #single polygon { fill: white; }
 
 /* Actual grid shapes' colors*/
-.up {border-bottom-color: dimgray}
-.down {border-top-color: gray}
+.up {border-bottom-color: #444}
+.down {border-top-color: #555}
 
 .up.triangle.cyan { border-bottom-color: var(--MyCyan); }
 .up.triangle.violet { border-bottom-color: var(--MyViolet); }
@@ -55,6 +55,7 @@ body {
 .up.triangle.pink { border-bottom-color: var(--MyPink); }
 .up.triangle.orange { border-bottom-color: var(--MyOrange); }
 .up.triangle.white { border-bottom-color: white; }
+.up.triangle.black { border-bottom-color: black; }
 
 .down.triangle.cyan { border-top-color: var(--MyCyan); }
 .down.triangle.violet { border-top-color: var(--MyViolet); }
@@ -63,6 +64,7 @@ body {
 .down.triangle.pink { border-top-color: var(--MyPink); }
 .down.triangle.orange { border-top-color: var(--MyOrange); }
 .down.triangle.white { border-top-color: white; }
+.down.triangle.black { border-top-color: black; }
 
 /* MAIN GRID */
 
@@ -73,6 +75,10 @@ body {
     border-right: 1.5rem solid transparent;
     margin-right: -1.15rem;
     color: white;
+}
+
+.triangle[frozen] {
+    color: black;
 }
 
 #grid {
