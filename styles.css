@@ -75,6 +75,10 @@ body {
     color: white;
 }
 
+.triangle[frozen] {
+    color: black;
+}
+
 #grid {
     margin: auto;
     display: flex;
@@ -131,6 +135,10 @@ body {
     z-index: 30;
   }
 
+  .vanish {
+    animation: vanish 0.5s linear;
+  }
+
   @media (orientation: landscape) {}
 
   @media (orientation: portrait) {}
@@ -146,4 +154,47 @@ body {
     77% { background: var(--MyPink); }
     88% { background: #333; }
     100% { background: var(--MyViolet); }
+  }
+
+  @keyframes vanish {
+    0% { 
+        border-top-color: var(--MyViolet);
+        border-bottom-color: var(--MyViolet);
+    }
+    11% { 
+        border-top-color: var(--MyCyan);
+        border-bottom-color: var(--MyCyan);
+    }
+    22% {
+        border-top-color: slategray;
+        border-bottom-color: slategray;
+    }
+    33% {
+        border-top-color: var(--MyYellow);
+        border-bottom-color: var(--MyYellow);
+    }
+    44% {
+        border-top-color: var(--MyOrange);
+        border-bottom-color: var(--MyOrange);
+    }
+    55% {
+        border-top-color: slategray;
+        border-bottom-color: slategray;
+    }
+    66% {
+        border-top-color: var(--MyRed);
+        border-bottom-color: var(--MyRed);
+    }
+    77% {
+        border-top-color: var(--MyPink);
+        border-bottom-color: var(--MyPink);
+    }
+    88% {
+        border-top-color: #333;
+        border-bottom-color: #333;
+    }
+    100% {
+        border-top-color: var(--MyViolet);
+        border-bottom-color: var(--MyViolet);
+    }
   }
