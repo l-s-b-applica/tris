@@ -1,6 +1,7 @@
 const whoosh = new Audio('./assets/whoosh.mp3')
 const clack = new Audio('./assets/lock.mp3')
 const knock = new Audio('./assets/knock.mp3')
+const wowowow = new Audio('./assets/wowowow.mp3')
 
 // EVENT HANDLERS
 function printShape(fall, climb, newPiece) {
@@ -47,39 +48,51 @@ function checkForFullRows(thisRow) {
     ///// SI TODAS LAS FICHAS DE LA FILA ESTÁN CONGELADAS: /////
     if(myRowArray.filter(tile => tile.hasAttribute('frozen')).length === gridValues[thisRow-1].length) {
 
-        ///// BORRO LAS FICHAS DE LA  *** FILA *** /////
-        myRowArray.forEach(tile => {
+        const animateRow = () => myRowArray.forEach(tile => {
+            tile.classList.add('vanish')
+        })
+        const eraseRow = () => myRowArray.forEach(tile => {
             tile.classList.remove(...colors)
+            tile.classList.remove('vanish')
             tile.removeAttribute('frozen')
         })
-        ///// ESTO ANDA OK. /////
-        ///// LO SIGUIENTE NO ANDA OK :D /////
-        while (thisRow > 1) {
-            let upperRowArray = Array.from(document.getElementsByClassName(`row${thisRow-1}`)[0].children)
-            upperRowArray.forEach(tile => { // If on bottom or on frozen tile, do nothing
-                console.log(`A VER:
-                CURRENT TILE: ${tile.id}, CURRENT BASE ROW FALL: ${currentFall[currentBaseRow]}, CURRENT UPPER ROW FALL: ${parseInt(currentFall[thisRow-2])}
-                FALLING PLACE (if any): ${parseInt(tile.id) + parseInt(currentFall[thisRow-2])}
-                ${gridTriangles[parseInt(tile.id) + parseInt(currentFall[thisRow-2])]}`)
-                let suitableToFall = true
-                let fallingPlace = null
-                if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
-                if (suitableToFall) {
-                    fallingPlace = gridTriangles[parseInt(tile.id) + parseInt(currentFall[thisRow-2])]
-                    if (fallingPlace.hasAttribute('frozen')) { suitableToFall = false }
-                    if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
-                 }
-                if (suitableToFall) { // If free to fall, then fall, on an individual basis
-                    let savedColor = tile.classList[2]
-                    tile.classList.remove(...colors)
-                    tile.removeAttribute('frozen')
 
-                    fallingPlace.classList.add(savedColor)
-                    fallingPlace.setAttribute('frozen', true) // fallingPlace working OK for upper row
-                }
-            })
-            thisRow--
+        const letFall = () => {
+            while (thisRow > 1) {
+                let upperRowArray = Array.from(document.getElementsByClassName(`row${thisRow-1}`)[0].children)
+                upperRowArray.forEach(tile => { // If on bottom or on frozen tile, do nothing
+                    let suitableToFall = true
+                    let fallingPlace = null
+                    if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
+                if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
+                    if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
+                if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
+                    if (bottomLimitTriangles.includes(parseInt(tile.id))) { suitableToFall = false } 
+                    if (suitableToFall) {
+                        fallingPlace = gridTriangles[parseInt(tile.id) + parseInt(currentFall[thisRow-2])]
+                        if (fallingPlace.hasAttribute('frozen')) { suitableToFall = false }
+                        if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
+                    if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
+                        if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
+                    if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
+                        if (!colors.includes(tile.classList[2])) {suitableToFall = false} 
+                    }
+                    if (suitableToFall) { // If free to fall, then fall, on an individual basis
+                        let savedColor = tile.classList[2]
+                        tile.classList.remove(...colors)
+                        tile.removeAttribute('frozen')
+
+                        fallingPlace.classList.add(savedColor)
+                        fallingPlace.setAttribute('frozen', true) // fallingPlace working OK for upper row
+                    }
+                })
+                thisRow--
+            }
         }
+        wowowow.play()
+        animateRow()
+        eraseRow()
+        letFall()               
     }
 }
 
