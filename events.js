@@ -23,8 +23,15 @@ function printShape(fall, climb) {
         })
     }
     currentShape.rotations[currentRotation].forEach(tile => {
-        gridTriangles[ startSpot + variableColumn + tile[0] + tile[2] ].classList.add(currentShape.className)
+        let tilePosition = gridTriangles[ startSpot + variableColumn + tile[0] + tile[2] ]
+        if (tilePosition.hasAttribute('frozen')) { gameOver() }
+        tilePosition.classList.add(currentShape.className)
     })
+}
+
+function gameOver() {
+    location.reload()
+    alert('Perdiste! Empezar de nuevo?')
 }
 
 function wipeShape() {
