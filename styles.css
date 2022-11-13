@@ -75,10 +75,6 @@ body {
     color: white;
 }
 
-.triangle[frozen] {
-    color: black;
-}
-
 #grid {
     margin: auto;
     display: flex;
