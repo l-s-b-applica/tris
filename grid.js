@@ -24,7 +24,7 @@ function newTriangle(value, number) {
     const gridTriangle = document.createElement('div')
     gridTriangle.setAttribute('id', number)
     const triangleText = gridTriangle.appendChild(document.createElement('div'))
-    triangleText.innerHTML = number
+    /* triangleText.innerHTML = number */
     if (value === 1) {
         gridTriangle.style.cssText = `border-bottom-width: ${1.5 * tan60}rem; border-bottom-style: solid;`
         gridTriangle.classList.add('up', 'triangle')
