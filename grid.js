@@ -1,8 +1,9 @@
 const tan60 = Math.tan(60 * Math.PI / 180)
 const container = document.getElementById('container')
 const start = document.querySelector('#start')
-const score = document.querySelector('#score')
+const scoreElement = document.querySelector('#score')
 const grid = document.getElementById('grid')
+let score = 0
 
 // GRID RENDERING
 const gridValues = [

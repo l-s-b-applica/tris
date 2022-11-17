@@ -4,8 +4,12 @@ const knock = new Audio('./assets/knock.mp3')
 const wowowow = new Audio('./assets/wowowow.mp3')
 
 // EVENT HANDLERS
-function printShape(fall, climb, newPiece) {
-    if (fall) {
+function printShape(fall, newPiece, rowPoints) {
+    if (rowPoints) { 
+        score += 500
+        scoreElement.innerHTML = `Score: ${score}`
+        return
+    } else if (fall) {
         if (fallingFlag) { fallSwitch() }
         currentShape.rotations.forEach(r => {
                 r.forEach(tile => {
@@ -14,20 +18,15 @@ function printShape(fall, climb, newPiece) {
         })
         currentBaseRow++
     }
-    if (climb) {
-        currentBaseRow--
-        if (climbingFlag) { fallSwitch() }
-        currentShape.rotations.forEach(r => {
-                r.forEach(tile => {
-                tile[2] -= currentFall[tile[1] + currentBaseRow]
-            })
-        })
-    }
     currentShape.rotations[currentRotation].forEach(tile => {
         let tilePosition = gridTriangles[ startSpot + variableColumn + tile[0] + tile[2] ]
         if (newPiece && tilePosition.hasAttribute('frozen')) { gameOver() }
         tilePosition.classList.add(currentShape.className)
     })
+    if (fall || newPiece) {
+        score++
+        scoreElement.innerHTML = `Score: ${score}`
+    }
 }
 
 async function gameOver() {
@@ -43,21 +42,25 @@ function wipeShape() {
     )
 }
     
-function checkForFullRows(thisRow) {
+async function checkForFullRows(thisRow) {
     let myRowArray = Array.from(document.getElementsByClassName(`row${thisRow}`)[0].children)
     ///// SI TODAS LAS FICHAS DE LA FILA ESTÁN CONGELADAS: /////
     if(myRowArray.filter(tile => tile.hasAttribute('frozen')).length === gridValues[thisRow-1].length) {
-
-        const animateRow = () => myRowArray.forEach(tile => {
+        
+        window.fullRow = true
+        const animateRow = () => myRowArray.forEach(async tile => {
             tile.classList.add('vanish')
-        })
-        const eraseRow = () => myRowArray.forEach(tile => {
+            playPause()
+            await setTimeout(() => {
+                tile.classList.remove('vanish');
+                playPause()
+            }, 900)
+        });
+        const eraseRow = setTimeout(() => myRowArray.forEach(tile => {
             tile.classList.remove(...colors)
-            tile.classList.remove('vanish')
             tile.removeAttribute('frozen')
-        })
-
-        const letFall = () => {
+        }), 900);
+        const letFall = setTimeout(() => {
             while (thisRow > 1) {
                 let upperRowArray = Array.from(document.getElementsByClassName(`row${thisRow-1}`)[0].children)
                 upperRowArray.forEach(tile => { // If on bottom or on frozen tile, do nothing
@@ -80,24 +83,25 @@ function checkForFullRows(thisRow) {
                 })
                 thisRow--
             }
-        }
+        }, 900);
         wowowow.play()
         animateRow()
-        eraseRow()
-        letFall()               
+        eraseRow
+        letFall            
     }
 }
 
-function freeze() {
+async function freeze() {
+    window.fullRow = false
     clack.play()
     currentShape.rotations[currentRotation].forEach(
         tile => gridTriangles[ startSpot + variableColumn + tile[0] + tile[2] ].setAttribute('frozen', true)
     )
     const rows = [12,11,10,9,8,7,6,5,4,3,2,1]
-    rows.forEach(function(row) { checkForFullRows(row) })
+    await rows.forEach(function(row) { checkForFullRows(row) })
     restartShapePosition()
     newShape()
-    printShape(false, false, true)
+    printShape(false, true, fullRow)
 }
 
 function fall() {
@@ -119,8 +123,8 @@ function fall() {
             freeze()
         } else {  
             wipeShape()
-            printShape(true, false)
-         }
+            printShape(true)
+        }
         if (!fallingFlag) { fallingFlag = true }
     }, 1500)
 }
