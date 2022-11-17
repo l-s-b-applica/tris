@@ -90,11 +90,11 @@ const blanca = new Shape(
     'white',
     [
         [[downOneRow+1, 1]],
+        [[downOneRow+2, 1]],
+        [[downTwoRows+1, 2]],
         [[downTwoRows, 2]],
-        [[downOneRow+1, 1]],
-        [[downTwoRows, 2]],
-        [[downOneRow+1, 1]],
-        [[downTwoRows, 2]]
+        [[downTwoRows-1, 2]],
+        [[downOneRow, 1]]
     ]
 )
 
