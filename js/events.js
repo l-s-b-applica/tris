@@ -4,13 +4,15 @@ const knock = new Audio('./assets/knock.mp3')
 const wowowow = new Audio('./assets/wowowow.mp3')
 
 // EVENT HANDLERS
+
 function printShape(fall, newPiece, rowPoints) {
     if (rowPoints) { 
         score += 500
         scoreElement.innerHTML = `Score: ${score}`
+        levelCheck()
         return
     } else if (fall) {
-        if (fallingFlag) { fallSwitch() }
+        fallSwitch()
         currentShape.rotations.forEach(r => {
                 r.forEach(tile => {
                 tile[2] += currentFall[tile[1] + currentBaseRow]
@@ -26,6 +28,7 @@ function printShape(fall, newPiece, rowPoints) {
     if (fall || newPiece) {
         score++
         scoreElement.innerHTML = `Score: ${score}`
+        levelCheck()
     }
 }
 
@@ -106,16 +109,15 @@ async function freeze() {
 
 function fall() {
     return setInterval(() => {
+        if (verticalFallEnabled) { limitSwitch() }
         let thisShape = currentShape.rotations[currentRotation]
         let bottomCondition = thisShape.some(
             tile => bottomLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
         )
         let frozenTouchCondition = thisShape.some(
-            tile => gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + currentFall[tile[1] + currentBaseRow]] &&
-            gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + currentFall[tile[1] + currentBaseRow]].hasAttribute('frozen')
+            tile => gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + nextFall[tile[1] + currentBaseRow]] &&
+            gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + nextFall[tile[1] + currentBaseRow]].hasAttribute('frozen')
         )
-        if (climbingFlag) { climbingFlag = false }
-        if (verticalFallEnabled) { limitSwitch() }
         // Check for freeze conditions and freeze, else move down
         if (bottomCondition) {
             freeze()
@@ -125,26 +127,18 @@ function fall() {
             wipeShape()
             printShape(true)
         }
-        if (!fallingFlag) { fallingFlag = true }
     }, 1500)
 }
 
-function moveUp() {
-    if (fallingFlag) { fallingFlag = false } // Not falling anymore
-    wipeShape()
-    printShape(false, true)
-    if (!climbingFlag) { climbingFlag = true } // From now on, climbing
-}
-
 function moveDown() {
-    if (climbingFlag) { climbingFlag = false } // Not climbing anymore
+    if (verticalFallEnabled) { limitSwitch() }
     let thisShape = currentShape.rotations[currentRotation]
     let bottomCondition = thisShape.some(
         tile => bottomLimitTriangles.includes(startSpot + variableColumn + tile[0] + tile[2])
     )
     let frozenTouchCondition = thisShape.some(
-        tile => gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + currentFall[tile[1] + currentBaseRow]] &&
-        gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + currentFall[tile[1] + currentBaseRow]].hasAttribute('frozen')
+        tile => gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + nextFall[tile[1] + currentBaseRow]] &&
+        gridTriangles[startSpot + variableColumn + tile[0] + tile[2] + nextFall[tile[1] + currentBaseRow]].hasAttribute('frozen')
     )
     if (bottomCondition) {
         freeze()
@@ -154,7 +148,6 @@ function moveDown() {
         wipeShape()
         printShape(true, false)
      }
-    if (!fallingFlag) { fallingFlag = true } // From now on, falling
 }
 
 function playPause() {
@@ -228,7 +221,6 @@ document.addEventListener('keyup', (e) => {
         }
     // DOWN SCROLL
         if(['ArrowDown', 's', 'S'].includes(e.key)) {
-            if (verticalFallEnabled) { limitSwitch() }
             moveDown()
         }
     }

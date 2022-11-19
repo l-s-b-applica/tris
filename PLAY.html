@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <title>Tris</title>
+    <title>T r i s</title>
 </head>
 <body>
     <div id="container">
@@ -32,19 +32,9 @@
             <svg id="single" width="50" height="43">
               <polygon points="0 43, 25 0, 50 43"/>
             </svg>
-          </div>
-          <div class="column">
-            <svg class="spacer" height="500"> </svg>
-            <h1>*** Work in progress ***</h1>
-            <h2>Presioná:</h2>
-            <h2>
-              <p>[←][↓][→] o [A][S][D]<br/>para mover las fichas</p>
-              <p>[Q] y [E] para rotarlas</p>
-            </h2>
             <button id="start" onclick="() => startGame()">⏯️Start/Pause</button>
             <h3 id="score"></h3>
           </div>
-          <div class="column">
         <div id="grid">
         </div>
         <div class="hex">
@@ -52,9 +42,11 @@
         </div>
     </div>
     </div>
-    <script src="fallConfig.js"></script>
-    <script src="shapes.js"></script>
-    <script src="grid.js"></script>
-    <script src="events.js"></script>
+    <script src="./js/fallConfig.js"></script>
+    <script src="./js/shapes.js"></script>
+    <script src="./js/grid.js"></script>
+    <script src="./js/levels.js"></script>
+    <script src="./js/events.js"></script>
 </body>
+<!-- <a href="https://www.textstudio.com/">Logo generator</a> -->
 </html>
