@@ -37,13 +37,13 @@ body {
 .column svg { margin-bottom: 3rem; }
 
 /* Sample block SVGs */
-#teeth polygon { fill: var(--MyCyan); }
-#claw polygon { fill: var(--MyViolet); }
-#sierpinski polygon { fill: var(--MyRed); }
-#radioactive polygon { fill: var(--MyYellow); }
-#fish polygon { fill: var(--MyPink); }
-#hump polygon { fill: var(--MyOrange); }
-#single polygon { fill: white; }
+.cyan polygon { fill: var(--MyCyan); }
+.violet polygon { fill: var(--MyViolet); }
+.red polygon { fill: var(--MyRed); }
+.yellow polygon { fill: var(--MyYellow); }
+.pink polygon { fill: var(--MyPink); }
+.orange polygon { fill: var(--MyOrange); }
+.white polygon { fill: white; }
 
 /* Actual grid shapes' colors*/
 .up {border-bottom-color: #444}
