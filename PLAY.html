@@ -4,49 +4,49 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/home.css">
     <title>T r i s</title>
 </head>
 <body>
-    <div id="container">
-        <div class="column">
-            <h1 id="title">⧨ris</h1>
-            <svg class="cyan" width="150" height="43">
-              <polygon points="0 43, 25 0, 50 43, 75 0, 100 43, 125 0, 150 43"/>
-            </svg>
-            <svg class="violet" width="150" height="86">
-              <polygon points="0 43, 25 0, 50 43, 75 86, 100 43, 125 0, 150 43"/>
-            </svg>
-            <svg class="red" width="100" height="86">
-              <polygon points="0 86, 50 0, 100 86, 50 86, 75 43, 25 43, 50 86"/>
-            </svg>
-          <svg class="yellow" width="100" height="86">
-              <polygon points="0 43, 25 0, 75 86, 25 86, 75 0, 100 43"/>
-            </svg>
-          <svg class="pink" width="50" height="129">
-              <polygon points="0 129, 50 129, 0 43, 25 0, 50 43"/>
-            </svg>
-           <svg class="orange" width="100" height="43">
-              <polygon points="0 43, 25 0, 75 0, 100 43"/>
-            </svg>
-            <svg class="white" width="50" height="43">
-              <polygon points="0 43, 25 0, 50 43"/>
-            </svg>
-            <button id="start" onclick="() => startGame()">⏯️Start/Pause</button>
-            <h3 id="score"></h3>
-          </div>
-        <div id="grid">
-        </div>
-        <div class="hex">
-            <div class="hex-background">
-        </div>
+  <div id="container">
+    <div class="column">
+      <h1 id="title">⧨ris</h1>
+      <svg class="cyan" width="150" height="43">
+        <polygon points="0 43, 25 0, 50 43, 75 0, 100 43, 125 0, 150 43"/>
+      </svg>
+      <svg class="violet" width="150" height="86">
+        <polygon points="0 43, 25 0, 50 43, 75 86, 100 43, 125 0, 150 43"/>
+      </svg>
+      <svg class="red" width="100" height="86">
+        <polygon points="0 86, 50 0, 100 86, 50 86, 75 43, 25 43, 50 86"/>
+      </svg>
+      <svg class="yellow" width="100" height="86">
+        <polygon points="0 43, 25 0, 75 86, 25 86, 75 0, 100 43"/>
+      </svg>
+      <svg class="pink" width="50" height="129">
+        <polygon points="0 129, 50 129, 0 43, 25 0, 50 43"/>
+      </svg>
+      <svg class="orange" width="100" height="43">
+        <polygon points="0 43, 25 0, 75 0, 100 43"/>
+      </svg>
+      <svg class="white" width="50" height="43">
+        <polygon points="0 43, 25 0, 50 43"/>
+      </svg>
+      <button id="start" onclick="() => startGame()">⏯️Start/Pause</button>
+      <h3 id="score"></h3>
     </div>
+    <div id="grid"></div>
+    <div class="hex">
+      <div class="hex-background"></div>
     </div>
-    <script src="./js/fallConfig.js"></script>
-    <script src="./js/shapes.js"></script>
-    <script src="./js/grid.js"></script>
-    <script src="./js/levels.js"></script>
-    <script src="./js/events.js"></script>
+  </div>
+  <script src="./js/screens.js"></script>
+  <script src="./js/fallConfig.js"></script>
+  <script src="./js/shapes.js"></script>
+  <script src="./js/grid.js"></script>
+  <script src="./js/levels.js"></script>
+  <script src="./js/events.js"></script>
 </body>
 <!-- <a href="https://www.textstudio.com/">Logo generator</a> -->
 </html>
