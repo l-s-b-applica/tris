@@ -8,21 +8,21 @@ function clearBoard() {
 }
 
 function levelCheck() {
-    if(level === 1 && score > 3000) {
+    if(level === 1 && score > 4000) {
         playPause()
         level2()
         newLevel = true
         clearBoard()
         setTimeout(() => {playPause()}, 1500)
     }
-    if(level === 2 && score > 6000) {
+    if(level === 2 && score > 8000) {
         playPause()
         level3()
         newLevel = true
         clearBoard()
         setTimeout(() => {playPause()}, 1500)
     }
-    if(level === 3 && score > 6500) {
+    if(level === 3 && score > 10000) {
         playPause()
         alert('Uy, ganaste! Te llevo a la home.')
         location.reload()
