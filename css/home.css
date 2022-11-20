@@ -11,7 +11,6 @@
     background-color: var(--MyBg);
     z-index: 30;
 }
-
 #home_marquee {
     display: flex;
     flex-direction: row;
@@ -40,8 +39,6 @@
   margin-top: -8vh;
   z-index: 27;
 }
-
-
 #home_screen[vanished] {
   animation: home-vanish ease-in 0.8s forwards;
 }
