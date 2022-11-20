@@ -9,6 +9,7 @@ function clearBoard() {
 
 function levelCheck() {
     if(level === 1 && score > 4000) {
+
         playPause()
         level2()
         newLevel = true
