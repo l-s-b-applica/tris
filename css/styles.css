@@ -10,21 +10,23 @@ body {
     --MyRed: #FF0088;
     --MyPink: #FF22FF;
     --hexagonPoints: polygon(0% 50%, 25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%);
+    --hexSize: 47.5rem;
 }
 
-#title {
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 3rem;
-    margin: auto;
-    font-weight: 300;
+#ingame-title {
+    position: absolute;
+    top: 4vh;
+}
+
+#bottom_ui {
+    position: absolute;
+    bottom: 4vh;
 }
 
 #container {
     width: 100vw;
     height: 100vh;
     background-color: var(--MyBg);
-    display: flex;
-    flex-direction: row;
     justify-content: space-evenly;
 }
 
@@ -74,17 +76,13 @@ body {
     border-left: 1.5rem solid transparent;
     border-right: 1.5rem solid transparent;
     margin-right: -1.15rem;
-    color: white;
     z-index: 20;
 }
 
 #grid {
-    margin: auto;
+    position: absolute;
     display: flex;
     flex-direction: column;
-    z-index: 20;
-    padding-right: 1.25rem;
-    padding-top: 13.5rem;
     z-index: 20;
 }
 
@@ -99,21 +97,24 @@ body {
 .up { margin-top: 0.08rem; }
 .down{ margin-top: -0.08rem; }
 
-@media (min-width:1200px) {
-    body { font-size: 16px; }
-    .hex {--hexSize: 760px; }
+@media (min-width:600px) {
+    body { font-size: 14px; }
 }
+
+@media (min-width:1000px) {
+    body { font-size: 16px; }
+}
+
+
 
 /* GRID FRAME */
 
 .hex {
-    display: flex;
-    top: 27vh;
+    top: -1.75rem;
     align-self: center;
     position: absolute;
     width: var(--hexSize);
     height: calc(var(--hexSize) * 0.86602540378);
-    box-sizing: border-box;
     -webkit-clip-path: var(--hexagonPoints);
     -moz-clip-path: var(--hexagonPoints);
     clip-path: var(--hexagonPoints);
