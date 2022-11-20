@@ -1,0 +1,52 @@
+#home_screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--MyBg);
+    z-index: 30;
+}
+
+#home_marquee {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    width: 200vw;
+    animation: my-marquee 10s linear infinite;
+}
+
+#home_applica, #home_play {
+    display: flex;
+    max-width: max-content;
+    max-height: max-content;
+}
+
+#home_screen[vanished] {
+  animation: home-vanish ease-in 0.8s forwards;
+}
+
+@keyframes my-marquee {
+    0% {
+      margin-left: 100vw;
+    }
+    100% {
+      margin-left: -100vw;
+    }
+  }
+
+@keyframes home-vanish {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+
