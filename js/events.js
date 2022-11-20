@@ -170,14 +170,14 @@ document.addEventListener('keyup', (e) => {
         let thisShape = currentShape.rotations[currentRotation]
 
     // LEFT ROTATION
-        if(['Q', 'q'].includes(e.key)) {
+        if(['Q', 'q', 'Control'].includes(e.key)) {
             wipeShape()
             currentRotation === 0 ? ( currentRotation = currentShape.rotations.length - 1 ) : ( currentRotation-- )
             whoosh.play()
             printShape()
         }
     // RIGHT ROTATION
-        if(['E', 'e'].includes(e.key)) {
+        if(['E', 'e', 'Alt'].includes(e.key)) {
             wipeShape()
             currentRotation === currentShape.rotations.length - 1 ? ( currentRotation = 0 ) : ( currentRotation++ )
             whoosh.play()

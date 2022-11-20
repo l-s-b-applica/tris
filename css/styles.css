@@ -2,6 +2,7 @@ body {
     overflow: hidden;
     margin: 0;
     color: silver;
+    --MyBg: #333;
     --MyViolet: #6033FF;
     --MyCyan: #60FFFF;
     --MyYellow: #FFDD00;
@@ -21,7 +22,7 @@ body {
 #container {
     width: 100vw;
     height: 100vh;
-    background-color: #333;
+    background-color: var(--MyBg);
     display: flex;
     flex-direction: row;
     justify-content: space-evenly;
@@ -74,15 +75,17 @@ body {
     border-right: 1.5rem solid transparent;
     margin-right: -1.15rem;
     color: white;
+    z-index: 20;
 }
 
 #grid {
     margin: auto;
     display: flex;
     flex-direction: column;
-    z-index: 40;
+    z-index: 20;
     padding-right: 1.25rem;
     padding-top: 13.5rem;
+    z-index: 20;
 }
 
 .gridRow {
@@ -116,12 +119,12 @@ body {
     clip-path: var(--hexagonPoints);
     animation: color-change 5s linear infinite;
     opacity: 0.8;
-    z-index: 20;
+    z-index: 10;
   }
   
   .hex-background {
     position: absolute;
-    background-color: #333;
+    background-color: var(--MyBg);
     top: 0.6rem; /* border thickness */
     left: 0.6rem;
     width: calc(var(--hexSize) - 1.2rem);
@@ -129,11 +132,11 @@ body {
     -webkit-clip-path: var(--hexagonPoints);
     -moz-clip-path: var(--hexagonPoints);
     clip-path: var(--hexagonPoints);
-    z-index: 30;
+    z-index: 10;
   }
 
   .vanish {
-    animation: vanish 0.5s linear;
+    animation: tile-vanish 0.5s linear;
   }
 
   @media (orientation: landscape) {}
@@ -149,11 +152,11 @@ body {
     55% { background: slategray; }
     66% { background: var(--MyRed); }
     77% { background: var(--MyPink); }
-    88% { background: #333; }
+    88% { background: var(--MyBg); }
     100% { background: var(--MyViolet); }
   }
 
-  @keyframes vanish {
+  @keyframes tile-vanish {
     0% { 
         border-top-color: var(--MyViolet);
         border-bottom-color: var(--MyViolet);
@@ -187,8 +190,8 @@ body {
         border-bottom-color: var(--MyPink);
     }
     88% {
-        border-top-color: #333;
-        border-bottom-color: #333;
+        border-top-color: var(--MyBg);
+        border-bottom-color: var(--MyBg);
     }
     100% {
         border-top-color: var(--MyViolet);

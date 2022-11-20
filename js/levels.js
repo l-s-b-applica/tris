@@ -39,6 +39,7 @@ function level2() {
 function level3() {
     wipeShape()
     level = 3
-    alert('Nivel 3')
+    alert(`Nivel 3
+    A ver ahora de qué te vas a disfrazar.`)
     enableVerticalFall()
 }
