@@ -8,7 +8,7 @@ const wowowow = new Audio('./assets/wowowow.mp3')
 function printShape(fall, newPiece, rowPoints) {
     if (rowPoints) { 
         score += 500
-        scoreElement.innerHTML = `Score: ${score}`
+        scoreElement.innerHTML = `Puntaje: ${score}`
         levelCheck()
         return
     } else if (fall) {
@@ -27,7 +27,7 @@ function printShape(fall, newPiece, rowPoints) {
     })
     if (fall || newPiece) {
         score++
-        scoreElement.innerHTML = `Score: ${score}`
+        scoreElement.innerHTML = `Puntaje: ${score}`
         levelCheck()
     }
 }

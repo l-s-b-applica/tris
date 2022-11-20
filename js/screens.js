@@ -50,6 +50,8 @@
     
     homeContainer.innerHTML = `
     <div id="home_screen">
+        <div id="home_triangle"></div>
+        <img id="home_logo" src="assets/tris.png" alt="T r i s" />
         <img id="home_applica" src="assets/applica-edition-no-bg.gif" alt="Applica Edition" />
         <div id="home_marquee">
             ${marquee}
