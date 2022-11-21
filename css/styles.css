@@ -111,6 +111,7 @@ body {
 
 .hex {
     top: -1.75rem;
+    left: -2rem;
     align-self: center;
     position: absolute;
     width: var(--hexSize);
