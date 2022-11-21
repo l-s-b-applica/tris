@@ -34,6 +34,7 @@
   background: linear-gradient(90deg, transparent, var(--MyBg));
   right: 0;
 }
+
 #home_triangle {
   position: absolute;
   top: 7.5vh;
@@ -59,9 +60,7 @@
 }
 #home_play {
   animation: play-reveal 4.5s forwards;
-  
 }
-
 #home_screen[vanished] {
   animation: home-vanish ease-in 0.8s forwards;
 }
